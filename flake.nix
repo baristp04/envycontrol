@@ -11,6 +11,8 @@
         envycontrol = pkgs.python3Packages.buildPythonPackage {
           pname = "envycontrol";
           version = "3.5.2";
+          pyproject = true;
+          build-system = with pkgs.python3Packages; [ setuptools ];
           src = self;
         };
         default = self.packages.${system}.envycontrol;
