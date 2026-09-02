@@ -233,14 +233,14 @@ nix run github:bayasdev/envycontrol -- <args>
 ```sh
 inputs = {
   # ...
-  envycontrol.url = github:bayasdev/envycontrol
+  envycontrol.url = "github:bayasdev/envycontrol";
 };
 ```
 
 And mention it in the packages like this:
 
 ```sh
-envycontrol.packages.x86_64-linux.default
+inputs.envycontrol.packages.x86_64-linux.default
 ```
 
 Thanks to [@ITesserakt](https://github.com/ITesserakt) for adding initial NixOS support!
