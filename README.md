@@ -1,3 +1,8 @@
+> [!NOTE]
+> **This is a fork**
+>
+> This fork applies a single, minimal packaging fix so the NixOS flake output builds again on current nixpkgs (nixpkgs removed the old `format` attribute for `buildPythonPackage`; this fork adds `pyproject = true;` and `build-system = [ setuptools ];`). No other functionality is changed. See [flake.nix](./flake.nix) for the exact diff. I've reached out to the original author about upstreaming this fix.
+
 > [!IMPORTANT]
 > **Project Status**  
 > 
@@ -220,12 +225,14 @@ Since [PEP668 adoption](https://www.linuxuprising.com/2023/03/next-debianubuntu-
 
 ### Nixos
 
+> ⚠️ The upstream flake output currently fails to build on recent nixpkgs (nixpkgs dropped the old `format` attribute for `buildPythonPackage`, so the derivation needs `pyproject = true;` and `build-system = [ setuptools ];` instead). This fork ([`baristp04/envycontrol`](https://github.com/baristp04/envycontrol)) applies that fix; use it in place of `bayasdev/envycontrol` below until/unless it's merged upstream.
+
 If you're using Nix Flakes:
 
 - Script could be executed using this command:
 
 ```sh
-nix run github:bayasdev/envycontrol -- <args>
+nix run github:baristp04/envycontrol -- <args>
 ```
 
 - For system-wide installation, add this flake to inputs in your configuration:
@@ -233,14 +240,14 @@ nix run github:bayasdev/envycontrol -- <args>
 ```sh
 inputs = {
   # ...
-  envycontrol.url = github:bayasdev/envycontrol
+  envycontrol.url = "github:baristp04/envycontrol";
 };
 ```
 
 And mention it in the packages like this:
 
 ```sh
-envycontrol.packages.x86_64-linux.default
+inputs.envycontrol.packages.x86_64-linux.default
 ```
 
 Thanks to [@ITesserakt](https://github.com/ITesserakt) for adding initial NixOS support!
@@ -322,7 +329,7 @@ The below files are created by `envycontrol`, and you may want to remove them ma
 
 ## 🐞 I have a problem
 
-Open an issue and **don't forget to complete all the requested fields!**
+For anything related to the Nix/NixOS packaging fix in this fork, please open an issue [here](https://github.com/baristp04/envycontrol/issues). For everything else (the tool itself), see the upstream repository and **don't forget to complete all the requested fields!**
 
 ## ☕️ Buy me a coffee
 
